@@ -48,14 +48,14 @@ def main(page: Page):
 		e.control.content.icon_color = 'white'
 		e.control.update()
 
-		for control in _main_row.content.controls[:]:
-			control.content.selected, control.content.icon_color = False, 'white54'
-			control.update()
+		for control in _main_row.content.controls[:]:							# Iteramos todos los iconos
+			control.content.selected, control.content.icon_color = False, 'white54'		# Seteamos los iconos con el flag "selected" a False y ponemos el color correspondiente al icono desactivado
+			control.update()													# Actualziamos la vista para mostrar los cambios
 
-			if e.control.content.selected != True:
-				e.control.content.selected = True
-				e.control.content.icon_color = 'white'
-				e.control.content.update()
+			if e.control.content.selected != True:								# Siempre que un icono tengo el estado "selected" a False...
+				e.control.content.selected = True								# Seteamos la variable "selected" a True
+				e.control.content.icon_color = 'white'							# Seleccionamos el color de icono correspondiente a "estado activo"
+				e.control.content.update()										# Actualizamos la vista para mostrar los cambios
 
 	for icon in _icon_list:														# Iteramos la totalidad de iconos para crear todos los botones de forma dinámica
 		icon_container = Container(
@@ -69,7 +69,7 @@ def main(page: Page):
 			)
 		)
 		if icon_container.content.icon == _icon_list[0]: icon_container.content.icon_color = 'white'	# Mostramos el icono de la izquierda como el activo por defecto
-		_main_row.content.controls.append(icon_container)
+		_main_row.content.controls.append(icon_container)						# Añadimos el contendeor con los iconos en la Columna Principal
 
 	# Contenedor Principal
 	_main_container = Container(
