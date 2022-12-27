@@ -3,7 +3,9 @@
 # Hello-Flet
 ## Índice de proyectos
 1. Animación Básica de la _Navigation Bar_
-   ![Basic Animation](https://github.com/OxDAbit/Hello-Flet/tree/basic_animation-v00.2/images/basic_animation.png)
+
+   ![Basic Animation](/images/basic_animation_01.png)
+   ![Basic Animation](/images/basic_animation_02.png)
 
 ## DEV tips
 - Para recargar la aplicación en caliente durante el desarrollo de la misma, basta con ejecutar el comando `flet <aplicación>.py -d`
