@@ -19,15 +19,26 @@ def main(page: Page):
 	page.vertical_alignment = 'center'                                        	# Alineamos la aplicación en vertical
 
 	# Columna Principal
-	_main_row = Container(
+	_navigation_bar = Container(
 		width=280,
 		height=50,
 		border_radius=35,
-		expand=True,
 		bgcolor='white10',
 		content=Row(
 			alignment=MainAxisAlignment.SPACE_BETWEEN,
 			controls=[]
+		)
+	)
+
+	_icon_view = Container(
+		width=260,
+		height=500,
+		border_radius=14,
+		bgcolor='red',
+		alignment=alignment.center,
+		content=Text(
+			color='white',
+			size=20
 		)
 	)
 
@@ -48,7 +59,10 @@ def main(page: Page):
 		e.control.content.icon_color = 'white'
 		e.control.update()
 
-		for control in _main_row.content.controls[:]:							# Iteramos todos los iconos
+		_icon_view.content.value = '{}'.format(e.control.content.icon)
+		page.update()
+
+		for control in _navigation_bar.content.controls[:]:							# Iteramos todos los iconos
 			control.content.selected, control.content.icon_color = False, 'white54'		# Seteamos los iconos con el flag "selected" a False y ponemos el color correspondiente al icono desactivado
 			control.update()													# Actualziamos la vista para mostrar los cambios
 
@@ -68,8 +82,10 @@ def main(page: Page):
 				icon_color='white54'
 			)
 		)
-		if icon_container.content.icon == _icon_list[0]: icon_container.content.icon_color = 'white'	# Mostramos el icono de la izquierda como el activo por defecto
-		_main_row.content.controls.append(icon_container)						# Añadimos el contendeor con los iconos en la Columna Principal
+		if icon_container.content.icon == _icon_list[0]:
+			icon_container.content.icon_color = 'white'	# Mostramos el icono de la izquierda como el activo por defecto
+			_icon_view.content.value = '{}'.format(_icon_list[0])
+		_navigation_bar.content.controls.append(icon_container)						# Añadimos el contendeor con los iconos en la Columna Principal
 
 	# Contenedor Principal
 	_main_container = Container(
@@ -78,8 +94,13 @@ def main(page: Page):
 		border_radius=35,
 		bgcolor='black',
 		alignment=alignment.bottom_center,										# Aliniamos los botones a modo de Navigation Bar en la zona inferior y centrados
-		padding=20,																# Separación entre botones
-		content=_main_row
+		padding=14,
+		content=Column(
+			controls=[
+				_icon_view,
+				_navigation_bar
+			]
+		)
 	)
 
 	page.add(_main_container)
