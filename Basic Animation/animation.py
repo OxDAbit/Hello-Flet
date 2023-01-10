@@ -7,7 +7,7 @@
 # Created:		27/12/2022
 #-------------------------------------------------------------------------------
 
-# Importando librerías
+# Importando módulos
 import flet
 import time
 
