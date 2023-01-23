@@ -11,5 +11,9 @@
 
    ![Basic Animation](/images/portfolio.png)
 
+3. [Sidebar](https://github.com/OxDAbit/Hello-Flet/tree/main/03%20-%20SideBar)
+
+   ![Basic Animation](/images/sidebar.png)
+
 ## DEV tips
 - Para recargar la aplicación en caliente durante el desarrollo de la misma, basta con ejecutar el comando `flet <aplicación>.py -d`

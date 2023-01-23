@@ -29,8 +29,8 @@ class ModernNavBar(UserControl):
 		print(e.control.content.controls[1].value)
 	def HighlightContainer(self, e):
 		if e.data == "true":
-			e.control.content.controls[0].icon_color = "purple300"
-			e.control.content.controls[1].color = "purple300"
+			e.control.content.controls[0].icon_color = "red"
+			e.control.content.controls[1].color = "red"
 			e.control.content.update()
 		else:
 			e.control.content.controls[0].icon_color = "black"

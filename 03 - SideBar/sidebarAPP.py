@@ -1,7 +1,7 @@
 # ------------------------------------------------------------------------------
 # Name:			sidebarAPP.py
 # Purpose:		Aplicación con menú lateral (sidebar)
-# Version:		v0.0.1
+# Version:		v0.0.2
 #
 # Author:		David Alvarez Medina aka 0xDA_bit
 # Created:		10/01/2023
@@ -18,9 +18,14 @@ class MainStackContainer(UserControl):
 		super().__init__()
 
 	# Abrir y cerrar sidebar menú
-	def HideMenu(self,e):
+	def HideMenu(self, e):
+		'''
+		menu -> Corresponde al sidebar menú
+		main -> Corresponde a la vista principal
+		'''
 		main = self.controls[0].content.controls[0].controls[0]
 		menu = self.controls[0].content.controls[1].controls[0]
+
 		if menu.width == 185:
 			menu.width = 0
 			menu.border = None
@@ -28,15 +33,17 @@ class MainStackContainer(UserControl):
 
 			main.opacity = 1
 			main.update()
-		else:
-			pass
-
 	def ShowMenu(self, e):
+		'''
+		menu -> Corresponde al sidebar menú
+		main -> Corresponde a la vista principal
+		'''
 		main = self.controls[0].content.controls[0].controls[0]
 		menu = self.controls[0].content.controls[1].controls[0]
+
 		if menu.width == 0:
 			menu.width = 185
-			menu.border = border.only(right=border.BorderSide(2, 'purple300'))
+			menu.border = border.only(right=border.BorderSide(2, 'red'))
 			menu.update()
 
 			main.opactity = 0.35
@@ -49,6 +56,7 @@ class MainStackContainer(UserControl):
 			main.opactity = 1
 			main.update()
 
+	# Creación del stack de la aplicación (vista principal + sidebar menú)
 	def build(self):
 		return Container(
 			width=280,
@@ -71,6 +79,8 @@ class MainPage(UserControl):
 		super().__init__()
 		self.function = function
 		self.function2 = function2
+		self.COMPLETADO = 'Completado'
+		self.PENDIENTE = 'Pendiente'
 
 	# Lista dummy para imprimir en la ListView
 	def MakeList(self):
@@ -81,7 +91,7 @@ class MainPage(UserControl):
 			auto_scroll=False
 		)
 
-		for i in range(60):
+		for idx in range(60):
 			dummy_list.controls.append(
 				Container(
 					alignment=alignment.center,
@@ -89,7 +99,10 @@ class MainPage(UserControl):
 					height=40,
 					bgcolor='#1d1d1d',
 					border_radius=8,
-					content=Text(i),
+					content=Checkbox(
+								label='Tarea {}'.format(idx),
+								fill_color='red'
+							),
 					visible=True,
 					animate=animation.Animation(200, 'decelerate')
 				)
@@ -99,27 +112,36 @@ class MainPage(UserControl):
 
 	# Método de filtrado de los valores impresos en la ListView
 	def FilterList(self, e):
-		if e.data == 'true':													# Valor devuelto por el checkbox cuando está clickado
-			if e.control.label == 'Impares':
+		print('El checkbox seleccionado es: {} y está: {}'.format(e.control.label, e.data))
+		if e.data == 'true':
+			if e.control.label == self.PENDIENTE:
+				print('El checkbox está a "true" y es igual a PENDIENTE')
 				for item in self.controls[0].content.controls[3].controls[:]:
-					if item.content.value % 2 == 0:
+					if item.content.value == True:
 						item.height = 0
+						item.content.visible = False
 						item.update()
-			if e.control.label == 'Pares':
+			if e.control.label == self.COMPLETADO:
+				print('El checkbox está a "true"  es igual a COMPLETADO')
 				for item in self.controls[0].content.controls[3].controls[:]:
-					if item.content.value % 2 != 0:
+					if item.content.value == False:
 						item.height = 0
+						item.content.visible = False
 						item.update()
-		else:
-			if e.control.label == 'Impares':
+		elif e.data == 'false':
+			if e.control.label == self.PENDIENTE:
+				print('El checkbox está a "false" y es igual a PENDIENTE')
 				for item in self.controls[0].content.controls[3].controls[:]:
-					if item.content.value % 2 == 0:
+					if item.content.value == True:
 						item.height = 40
+						item.content.visible = True
 						item.update()
-			if e.control.label == 'Pares':
+			if e.control.label == self.COMPLETADO:
+				print('El checkbox está a "false" y es igual a COMPLETADO')
 				for item in self.controls[0].content.controls[3].controls[:]:
-					if item.content.value % 2 != 0:
+					if item.content.value == False:
 						item.height = 40
+						item.content.visible = True
 						item.update()
 
 	# Creamos la topbar con los dos botones para filtrar los resultados
@@ -135,8 +157,8 @@ class MainPage(UserControl):
 						spacing=0,
 						controls=[
 							Checkbox(
-								label='Pares',
-								fill_color='purple300',
+								label=self.COMPLETADO,
+								fill_color='red',
 								on_change=lambda e: self.FilterList(e)
 							)
 						]
@@ -145,8 +167,8 @@ class MainPage(UserControl):
 						spacing=0,
 						controls=[
 							Checkbox(
-								label='Impares',
-								fill_color='purple300',
+								label=self.PENDIENTE,
+								fill_color='red',
 								on_change=lambda e: self.FilterList(e)
 							)
 						]
@@ -155,6 +177,7 @@ class MainPage(UserControl):
 			)
 		)
 
+	# Creamos el contenido de la vista principal
 	def build(self):
 		return Container(
 			expand=True,
@@ -207,6 +230,7 @@ class MenuPage(UserControl):
 		super().__init__()
 		self.function = function
 
+	# Creamos el contenido de la lista de tareas
 	def build(self):
 		return Container(
 			width=0,
@@ -234,7 +258,7 @@ class MenuPage(UserControl):
 def main(page: Page):
 	page.horizontal_alignment = 'center'
 	page.vertical_alignment = 'center'
-	page.bgcolor = 'deeppurple200'
+	page.bgcolor = 'red'
 
 	page.add(MainStackContainer())
 	page.update()
