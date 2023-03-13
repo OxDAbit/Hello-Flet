@@ -83,7 +83,6 @@ class WebApp(UserControl):
 	def logIn(self, e):															# Acceso al login de ususario
 		print('Se ha pulsado el botón de login con el valor: {}'.format(e))
 		self.layout.setLoginView()
-		self.showMenuOptions()
 	def settings(self, e):														# Acceso al menú de configuración de la aplicación
 		print('Se ha pulsado el menú de configuración con el valor: {}'.format(e))
 		self.layout.setSettingsView()
