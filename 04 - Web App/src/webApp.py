@@ -12,7 +12,7 @@
 
 # Importamos librerías
 from appLayout import AppLayout
-from flet import (Page,colors,UserControl,PopupMenuItem,PopupMenuButton,AppBar,Text,Container,margin,View,padding,TemplateRoute)
+from flet import (Page,colors,UserControl,PopupMenuItem,PopupMenuButton,AppBar,Text,Container,margin,View,padding,TemplateRoute,icons)
 
 class WebApp(UserControl):
 	def __init__(self, page: Page):
@@ -29,13 +29,16 @@ class WebApp(UserControl):
 		self.appBar = AppBar(
 								#leading=Icon(icons.GRID_GOLDENRATIO_ROUNDED),
 								leading_width=100,
-								title=Text(f"Web App", font_family="Helvetica", size=32, text_align="start", color='white'),
+								title=Text(f"Web App", font_family="Helvetica", size=28, text_align="start", color='white'),
 								center_title=False,
 								toolbar_height=75,
 								bgcolor=colors.RED_500,
 								actions=[
 									Container(
-										content=PopupMenuButton(items=self.appbarItems),
+										content=PopupMenuButton(
+													icon=icons.MENU_ROUNDED,
+													items=self.appbarItems
+												),
 										margin=margin.only(left=50, right=25),
 									)
 								]
@@ -80,6 +83,7 @@ class WebApp(UserControl):
 	def logIn(self, e):															# Acceso al login de ususario
 		print('Se ha pulsado el botón de login con el valor: {}'.format(e))
 		self.layout.setLoginView()
+		self.showMenuOptions()
 	def settings(self, e):														# Acceso al menú de configuración de la aplicación
 		print('Se ha pulsado el menú de configuración con el valor: {}'.format(e))
 		self.layout.setSettingsView()

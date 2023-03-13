@@ -1,5 +1,6 @@
 {
 	"fontFamily": "Helvetica",
+	"appBarFontSize": 28,
 	"appBarBkg": "",
 	"sideBarBkg": "",
 	"mainViewBkg": ""
